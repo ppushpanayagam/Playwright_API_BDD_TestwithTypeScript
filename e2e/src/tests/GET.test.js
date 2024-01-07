@@ -1,39 +1,24 @@
-import {test, expect} from '@playwright/test'
-// const schema = require('../schemaRepo/GETrequestSchema.json');
-// import Ajv from "ajv/dist/jtd"
+import { expect, test } from '@playwright/test'
 
-
-test('Verify GET Request test', async ({request}) => {
-
-    const response = await request.get('/api/unknown/2');
-    await expect(response.status()).toBe(200);
-    await expect(response.ok()).toBeTruthy();
+test('retrieve user posts', async ({ request}) => {
+    const response = await request.get('/posts')
+    expect(response.ok()).toBeTruthy()
+    expect(response.status()).toBe(200)
 })
 
-test('Verify GET Request Response Body test', async ({request}) => {
-
-    const response = await request.get('/api/unknown/2');
-    expect(response.status()).toBe(200);
-    expect(response.ok()).toBeTruthy();
-    const jsonBody = JSON.parse(await response.text());
-    console.log(jsonBody);
-    expect(jsonBody.data.id).toBe(2);
-    expect.soft(jsonBody.data.name).toBe('fuchsia rose');
+test('retrieve user post', async ({ request }) => {
+    const response = await request.get('/posts/1')
+    expect(response.ok()).toBeTruthy()
+    expect(response.status()).toBe(200)
+    expect(await response.json()).toEqual(expect.objectContaining({
+        "id":1,
+        "userId":1
+    }))
 })
 
-test('Verify GET Response Schema Validation test', async ({request}) => {
-
-    const response = await request.get('/api/unknown/2');
-    expect(response.status()).toBe(200);
-    expect(response.ok()).toBeTruthy();
-    const jsonBody = JSON.parse(await response.text());
-    const responseBody = await response.json();
-    console.log(responseBody);
-    // const ajv = new Ajv();
-    // const validate = await ajv.compile(schema);
-    // const valid = await validate(responseBody);
-    // if (!valid) {
-    //     console.error('**********Schema Validation error triggered********');
-    //     console.error('AJV Validation Errors:', await ajv.errorsText());
-    // }
+test('cannot retrieve animals', async ({ request}) => {
+    const response = await request.get('/animals')
+    expect(response.ok()).toBeFalsy()
+    expect(response.status()).toBe(404)
+    expect(response.statusText()).toEqual("Not Found")
 })

@@ -1,0 +1,60 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "as-an-api-i-can-retrive-all-the-details;as-an-api-i-can-get-all-the-details",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "As an API I can GET all the details",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 32710332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I get the \"posts\"",
+            "match": {
+              "location": "src/step-definitions/GET-Steps.ts:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 259186624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 6,
+            "name": "the response was successful",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@dev",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "as-an-api-i-can-retrive-all-the-details",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "As an API I can retrive all the details",
+    "tags": [],
+    "uri": "src/features/GET.feature"
+  }
+]

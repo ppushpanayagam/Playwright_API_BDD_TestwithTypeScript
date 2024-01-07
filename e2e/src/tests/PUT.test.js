@@ -1,22 +1,35 @@
-import {test, expect} from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
-
-test('Verify PUT request test', async ({request}) => {
-
-    const response = await request.put('/api/users/2', {
+test('update user post', async ({ request }) => {
+    const response = await request.put('/posts/1', {
         data: {
-            name: 'morpheus',
-            job: 'zion resident'
+            id: 1,
+            title: 'Existing post',
+            body: 'This is a post',
+            userId: 1
         }
-        
     })
+    expect(response.ok()).toBeTruthy()
+    expect(response.status()).toBe(200)
+    expect(await response.json()).toEqual(expect.objectContaining({
+        "body" : "This is a post",
+        "id" : 1,
+        "title" : "Existing post",
+        "userId" : 1
+    }))
+})
 
-    expect(response.status()).toEqual(200);
-    expect(response.ok()).toBeTruthy();
-
-    console.log(await response.text());
-    const responseData = JSON.parse(await response.text());
-    console.log(await responseData.name);
-    console.log(await responseData.job);
-    console.log(await responseData.updatedAt);
+test('update a user post that does not exist', async ({ request }) => {
+    const response = await request.put('/posts/200', {
+      data: {
+          id: 1,
+          title: 'Existing post',
+          body: "This is a post",
+          userId: 1
+      }
+    })
+    expect(response.ok()).toBeFalsy()
+    expect(response.status()).toBe(500)
+    expect(response.statusText()).toEqual("Internal Server Error")
+    expect(await response.text()).toContain("Cannot read properties of undefined (reading 'id')")
 })

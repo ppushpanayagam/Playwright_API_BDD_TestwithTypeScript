@@ -1,9 +1,8 @@
-import {test, expect} from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
-
-test.only('Verify DELETE request test', async ({request}) => {
-
-    const response = await request.delete('/api/users/2');
-    expect(await response.status()).toEqual(204);
-    expect(await response.statusText()).toEqual('No Content');
+test('delete user post', async ({ request }) => {
+    const response = await request.delete('/posts/1')
+    expect(response.ok()).toBeTruthy()
+    expect(response.status()).toBe(200)
+    expect(await response.text()).toContain("{}")
 })

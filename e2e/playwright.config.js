@@ -1,8 +1,8 @@
 const config = {
     use: {
-        baseURL: 'https://reqres.in',
+        baseURL: 'https://jsonplaceholder.typicode.com',
         extraHTTPHeaders: {
-            'Content-Type': 'application/json; charset=utf-8',
+            'Content-type' : 'application/json; charset=UTF-8'
         }
     }
 }
